@@ -46,12 +46,6 @@ export default function HambMenu() {
             <li>
               <Link href="/pages/contact">Contact</Link>
             </li>
-            <li>
-              <Link href="/pages/login">Login</Link>
-            </li>
-            <li>
-              <Link href="pages/logout">Logout</Link>
-            </li>
           </ul>
         </div>
       </div>

@@ -13,8 +13,11 @@ import twitterImage from "@/app/assets/images/twitter.svg";
 import instagramImage from "@/app/assets/images/instagram.svg";
 import facebookImage from "@/app/assets/images/facebook.svg";
 import socialImage from "@/app/assets/images/social.svg";
+import { createClient } from "@/app/supabase/client";
 
 export default function ContactPage() {
+const supabase = createClient()
+
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
@@ -32,11 +35,13 @@ export default function ContactPage() {
   const disabled = name && email && phone && message;
 
   const updateName = (e: ChangeEvent<HTMLInputElement>): void => {
-    setName(e.target.value);
+    const usersName = e.target.value;
+    setName(usersName);
   };
 
   const updateEmail = (e: ChangeEvent<HTMLInputElement>): void => {
-    setEmail(e.target.value);
+    const usersEmail = e.target.value;
+    setEmail(usersEmail);
   };
 
   const updatePhone = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -47,10 +52,11 @@ export default function ContactPage() {
   };
 
   const updateMessage = (e: ChangeEvent<HTMLTextAreaElement>): void => {
-    setMessage(e.target.value);
+    const usersMessage = e.target.value;
+    setMessage(usersMessage);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const errors = {
@@ -67,19 +73,43 @@ export default function ContactPage() {
       return;
     }
 
-    setIsSubmitted(true);
-    setSuccess("Thanks for reaching out. Your message has been sent successfully!");
-    setError(null);
-    setName("");
-    setEmail("");
-    setPhone("");
-    setMessage("");
-    setFormErrors({
-      name: false,
-      email: false,
-      phone: false,
-      message: false,
-    });
+    if (!supabase) {
+      setError("Service is currently unavailable. Please try again later.");
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from("Table")
+        .insert([{ name, email, phone, message }]);
+
+      if (error) {
+        console.error("Error:", error);
+        setError("Please fill all the fields correctly.");
+        setSuccess(null);
+      } else {
+        setIsSubmitted(true);
+        console.log("Data:", data);
+        setSuccess(
+          "Thanks for reaching out. Your message has been sent successfully!"
+        );
+        setError(null);
+        setName("");
+        setEmail("");
+        setPhone("");
+        setMessage("");
+        setFormErrors({
+          name: false,
+          email: false,
+          phone: false,
+          message: false,
+        });
+      }
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      setError("Unexpected error, please try again later.");
+      setSuccess(null);
+    }
   };
 
   return (
