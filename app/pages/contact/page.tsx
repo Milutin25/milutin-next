@@ -32,8 +32,7 @@ const supabase = createClient()
   });
 
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-  const disabled = name && email && phone && message;
-
+ 
   const updateName = (e: ChangeEvent<HTMLInputElement>): void => {
     const usersName = e.target.value;
     setName(usersName);

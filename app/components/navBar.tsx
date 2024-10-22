@@ -30,6 +30,9 @@ export default function NavBar() {
             <li>
               <Link href="/pages/contact">Contact</Link>
             </li>
+            <li>
+              <Link href="/pages/messages">Messages</Link>
+            </li>
           </ul>
         </div>
         <div className="copyright">

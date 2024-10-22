@@ -10,7 +10,6 @@ import HambMenu from "./components/hambMenu";
 import Cursor from "./components/cursor";
 
 
-
 export default function Page() {
 
   const [loading, setLoading] = useState(true);
