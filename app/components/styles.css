@@ -1,211 +1,102 @@
 
 @charset "utf-8";
 
-
-/*	This file is made for CURRENT TEMPLATE
-
-
-01)	KIOTO KIOTO BASE
-02) KIOTO MOBILE MENU
-03) KIOTO LEFTPART
-04) KIOTO RIGHTPART
-05) KIOTO HOME
-06) KIOTO ABOUT
-10) KIOTO CONTACT
-11) KIOTO MAGIC CURSOR
-12) KIOTO MEDIA QUERIES (FOR SMALL DEVICES)
-
-
-/*---------------------------------------------------*/
-/*	01) KIOTO BASE
-/*---------------------------------------------------*/
-
-/*LOGIN PAGE*/
-
-.pageWrapper {
-	display: flex;
-	flex-direction: column;
-	justify-content: center; /* Centers horizontally */
-	align-items: center; /* Centers vertically */
-	height: 100vh; /* Full viewport height */
-  }
-  
-.formWrapper {
-	display: flex;
-	flex-direction: column;
-	width:400px;
-	max-width: 600px; /* Limit the form's width */
-	padding: 20px;
-	margin: 100px ; /* Center the form horizontally */
-	border: 1px solid rgba(0, 0, 0, 0.1); /* Box border */
-	box-sizing: border-box; /* Ensures padding and borders are included in the element's width/height */
-	background-color: #f9f9f9; /* Light background for contrast */
-  }
-  
-  .label {
-	font-family: var(--bff);
-	margin-bottom: 8px;
-	color: #333; /* Adjust as needed */
-  }
-  
-  .loginInput {
-	padding: 20px;
-	background-color: transparent;
-	border: 1px solid rgba(0, 0, 0, 0.1);
-	font-family: var(--bff);
-	margin-bottom: 20px;
-	height: 60px; /* Adjust height if needed */
-	font-size: 16px; /* Adjust text size */
-	outline: none;
-	transition: border-color 0.3s;
-  }
-  
-  .loginInput:focus {
-	border-color: rgba(0, 0, 0, 0.3);
-  }
-  
-  .buttonWrapper {
-	display: flex;
-	gap: 10px; /* Spacing between buttons */
-	justify-content: center;
-  }
-  
-  .loginButton {
-	padding: 15px 30px;
-	background-color: #333;
-	color: white;
-	border: none;
-	cursor: pointer;
-	font-family: var(--bff);
-	font-size: 16px;
-	transition: background-color 0.3s;
-  }
-  
-  .loginButton:hover {
-	background-color: #555; /* Adjust hover color as needed */
-  }
-  
-
-/* MESSAGE ON BLOG PAGE FOR LOGIN */
-.login-message-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh; /* Full viewport height */
-	background-color: #f5f5f5;
-  }
-  
-
-  .login-message-box {
-	background-color: white;
-	padding: 40px;
-	border-radius: 12px;
-	border: 1px solid #ccc;
-	box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-	text-align: center;
-	max-width: 500px;
-	width: 100%;
-  }
-  
-  /* Style the title */
-  .login-message-title {
-	font-size: 24px;
-	color: #333;
-	margin-bottom: 20px;
-	font-weight: bold;
-  }
-  
-  /* Style the text */
-  .login-message-text {
-	font-size: 16px;
-	color: #666;
-  }
-  
-  /* Style the login link */
-  .login-message-link {
-	color: #3498db;
-	text-decoration: none;
-	font-weight: bold;
-	transition: color 0.3s;
-  }
-  
-  /* Hover effect for the link */
-  .login-message-link:hover {
-	color: #2980b9;
-  }
-  
-
-
-/*Blog auth*/
-
-.userEmail {
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); 
     display: flex;
-	align-items: end;
-    justify-content: end; 
-    padding: 10px 20px 0 0 ; 
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+    animation: fadeIn 0.3s ease-in-out; 
+}
+
+.modal-content {
+    background: #ffffff; 
+    padding: 40px; 
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); 
+    text-align: center;
+    width: 350px; 
+}
+
+input {
+    width: 100%;
+    padding: 10px; 
+    margin: 10px 0;
+    border: 1px solid #ccc; 
     border-radius: 5px; 
+    font-size: 16px; 
 }
 
-
-/* LOGOUT BUTTON*/
-
-.logoutButton { 
-	font-weight: 500;
-	font-size: 13px;
-	text-transform: uppercase;
+.admin-login-button,
+.admin-close-button {
+    background: #007BFF; 
+    color: white; 
+    padding: 12px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    margin: 10px 5px; 
+    font-size: 16px;
+    width: calc(50% - 15px); 
 }
 
-.details {
-	position: relative;
-	padding: 20px;
-	background-color: #f0f0f0;
-	border-radius: 10px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .hover-text {
-	position: absolute;
-	top: 60px; 
-	left: 50%;
-	transform: translateX(-50%) scale(0); 
-	opacity: 0;
-	background-color: #fff;
-	width: 400px; 
-	height: 500px; 
-	padding: 20px;
-	border-radius: 8px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-	text-align: left; 
-	overflow: auto; 
-	display: flex;
-	align-items: center; 
-	justify-content: center; 
-	transition: opacity 0.5s ease, transform 0.8s ease; 
-  }
-  
-  .details:hover .hover-text {
-	opacity: 1;
-	transform: translateX(-50%) scale(1);
-  }
-  
-  .hidden {
-	opacity: 0;
-	transform: translateX(-50%) scale(0);
-  }
-  
-  .description {
-	font-size: 16px;
-	color: #333;
-	font-weight: 500;
-	margin: 0;
-	line-height: 1.4;
-	max-width: 100%; 
-	z-index: 400;
-  }
-  
+.admin-login-button:hover {
+    background: #0056b3;
+}
+
+.admin-close-button {
+    background: #dc3545; 
+}
+
+.admin-close-button:hover {
+    background: #c82333; 
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* MESSAGES PAGE */
+
+.messages_list ul {
+    list-style: none; 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; 
+    padding: 0; 
+    margin: 0; 
+}
+
+.messages_list li h4 {
+    color: #007bff; 
+    font-weight: bold; 
+}
+
+.messages_list li {
+    background-color: #ffffff; 
+    border: 1px solid #e1e1e1; 
+    border-radius: 10px; 
+    padding: 20px; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    font-family: 'Arial', sans-serif; 
+    text-align: center; 
+}
+
+/* Removed hover effect for messages list items */
 
 
-  
+
+
 
 
 
@@ -1704,10 +1595,8 @@ p .leftpart .copyright a:hover{
 	margin: 0;
 }
 
-/* Firefox */
-.kioto_tm_contact input[type=number] {
-  -moz-appearance: textfield;
-}
+
+
 
 .error_box{
 	width: 100%;
@@ -1873,6 +1762,7 @@ p .leftpart .copyright a:hover{
 	.kioto_tm_section{left:0}  
 	.hover-text{display: none}
 	.userEmail{padding-top:60px;}
+	.messages_list ul {grid-template-columns: repeat(3, 1fr);}
 }
 @media (max-width: 768px) {
 	.kioto_tm_home h3{font-size: 25px;}
@@ -1902,4 +1792,5 @@ p .leftpart .copyright a:hover{
 	.kioto_tm_section{left:0}  
 	.kioto_tm_service .services_list .kioto_tm_service {width: 90%;}
 	.hover-text{display: none}
+	.messages_list ul {grid-template-columns: repeat(2, 1fr);}
 }
