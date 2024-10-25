@@ -20,15 +20,16 @@ export default function MessagesPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
 
   useEffect(() => {
     const fetchMessages = async () => {
       setLoading(true);
       try {
         const { data, error } = await supabase
-          .from("Table") 
+          .from("Table")
           .select("*")
-          .order("created_at", { ascending: false });
+          .order("created_at", { ascending: sortOrder === "oldest" });
 
         if (error) {
           setError(`Failed to fetch messages: ${JSON.stringify(error)}`);
@@ -45,7 +46,11 @@ export default function MessagesPage() {
     };
 
     fetchMessages();
-  }, [supabase]);
+  }, [supabase, sortOrder]);
+
+  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortOrder(event.target.value as "newest" | "oldest");
+  };
 
   return (
     <>
@@ -61,6 +66,14 @@ export default function MessagesPage() {
           <div className="kioto_tm_messages">
             <div className="kioto_tm_title">
               <span>// Messages</span>
+            </div>
+
+            <div className="sort-form">
+              <label htmlFor="sortOrder">Sort by date:</label>
+              <select id="sortOrder" value={sortOrder} onChange={handleSortChange}>
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+              </select>
             </div>
 
             {loading ? (
